@@ -1,0 +1,3 @@
+[submodule "authService/authService/protos"]
+	path = authService/authService/protos
+	url = git@github.com:HusanRukhitdinov/protos.git
