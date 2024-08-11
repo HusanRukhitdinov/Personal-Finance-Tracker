@@ -1,3 +1,9 @@
 [submodule "authService/authService/protos"]
 	path = authService/authService/protos
 	url = git@github.com:HusanRukhitdinov/protos.git
+[submodule "authService/protos"]
+	path = authService/protos
+	url = git@github.com:HusanRukhitdinov/protos.git
+[submodule "budgetService/protos"]
+	path = budgetService/protos
+	url = git@github.com:HusanRukhitdinov/protos.git
