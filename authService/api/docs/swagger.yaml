@@ -1,0 +1,270 @@
+basePath: /auth
+definitions:
+  user.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  user.LoginResponse:
+    properties:
+      role:
+        type: string
+      userId:
+        type: string
+      username:
+        type: string
+    type: object
+  user.LogoutRequest:
+    properties:
+      token:
+        type: string
+    type: object
+  user.Message:
+    properties:
+      message:
+        type: string
+    type: object
+  user.ProfileResponse:
+    properties:
+      createdAt:
+        type: string
+      email:
+        type: string
+      fullname:
+        type: string
+      username:
+        type: string
+    type: object
+  user.ProfileUpdateRequest:
+    properties:
+      email:
+        type: string
+      username:
+        type: string
+    type: object
+  user.ProfileUpdateResponse:
+    properties:
+      email:
+        type: string
+      fullname:
+        type: string
+      id:
+        type: string
+      updatedAt:
+        type: string
+      username:
+        type: string
+    type: object
+  user.RegisterRequest:
+    properties:
+      email:
+        type: string
+      fullname:
+        type: string
+      password:
+        type: string
+      role:
+        type: string
+      username:
+        type: string
+    type: object
+  user.RegisterResponse:
+    properties:
+      createdAt:
+        type: string
+      email:
+        type: string
+      fullname:
+        type: string
+      id:
+        type: string
+      password:
+        type: string
+      role:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:8081
+info:
+  contact:
+    name: API Support
+  description: This is an API for user authentication.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  version: "1.0"
+paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Login a new user account
+      parameters:
+      - description: User login request
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/user.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.LoginResponse'
+        "400":
+          description: Bad request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Login a new user
+      tags:
+      - auth
+  /logout:
+    post:
+      consumes:
+      - application/json
+      description: Logout a new user account
+      parameters:
+      - description: User logout request
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/user.LogoutRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.Message'
+        "400":
+          description: Bad request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Logout a new user
+      tags:
+      - auth
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user account
+      parameters:
+      - description: User registration request
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/user.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.RegisterResponse'
+        "400":
+          description: Bad request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Register a new user
+      tags:
+      - auth
+  /updateprofile:
+    put:
+      consumes:
+      - application/json
+      description: Update user Profile
+      parameters:
+      - description: User update profile request
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/user.ProfileUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.ProfileUpdateResponse'
+        "400":
+          description: Bad request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update user Profile
+      tags:
+      - auth
+  /userprofile/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a user profile by user ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.ProfileResponse'
+        "400":
+          description: Bad request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: UserProfile a user
+      tags:
+      - auth
+swagger: "2.0"
