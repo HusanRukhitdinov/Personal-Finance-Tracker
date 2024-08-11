@@ -1,51 +1,59 @@
 package config
 
 import (
-	"log"
+	"fmt"
 	"os"
 
-	"github.com/joho/godotenv"
 	"github.com/spf13/cast"
+
+	"github.com/joho/godotenv"
 )
 
 type Config struct {
-	HTTP_PORT           string
-	USER_SERVICE        string
-	DB_HOST             string
-	DB_PORT             string
-	DB_USER             string
-	DB_PASSWORD         string
-	DB_NAME             string
-	SIGNING_KEY         string
-	REFRESH_SIGNING_KEY string
-	EMAIL               string
-	PASSWORD            string
+	MongoHost     string
+	MongoPort     string
+	MongoUser     string
+	MongoPassword string
+	MongoDB       string
+
+	ServiceName string
+	Environment string
+	LoggerLevel string
+
+	BudgetServiceGrpcHost string
+	BudgetServiceGrpcPort string
+	EmailPassword         string
 }
 
 func Load() Config {
-	if err := godotenv.Load(".env"); err != nil {
-		log.Print("No .env file found?")
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println(".env not found", err)
 	}
 
-	config := Config{}
-	config.HTTP_PORT = cast.ToString(Coalesce("HTTP_PORT", ":8075"))
-	config.USER_SERVICE = cast.ToString(Coalesce("USER_SERVICE", ":8081"))
-	config.DB_HOST = cast.ToString(Coalesce("DB_HOST", "localhost"))
-	config.DB_PORT = cast.ToString(Coalesce("DB_PORT", 5432))
-	config.DB_USER = cast.ToString(Coalesce("DB_USER", "postgres"))
-	config.DB_PASSWORD = cast.ToString(Coalesce("DB_PASSWORD", "3333"))
-	config.DB_NAME = cast.ToString(Coalesce("DB_NAME", "tracker_auth"))
-	config.SIGNING_KEY = cast.ToString(Coalesce("SIGNING_KEY", "secret"))
-	config.REFRESH_SIGNING_KEY = cast.ToString(Coalesce("REFRESH_SIGNING_KEY", "secret"))
-	config.EMAIL = cast.ToString(Coalesce("EMAIL", "hrukhitdinov@gmail.com"))
-	config.PASSWORD = cast.ToString(Coalesce("PASSWORD", "htyy mkpy wsrk brgg"))
+	cfg := Config{}
 
-	return config
+	cfg.MongoHost = cast.ToString(getOrReturnDefault("MONGO_HOST", "localhost"))
+	cfg.MongoPort = cast.ToString(getOrReturnDefault("MONGO_PORT", "27017"))
+	cfg.MongoUser = cast.ToString(getOrReturnDefault("MONGO_USER", "mongosh"))
+	cfg.MongoPassword = cast.ToString(getOrReturnDefault("MONGO_PASSWORD", "3333"))
+	cfg.MongoDB = cast.ToString(getOrReturnDefault("MONGO_DB", "budget_service"))
+
+	cfg.ServiceName = cast.ToString(getOrReturnDefault("SERVICE_NAME", "budget"))
+	// cfg.Environment = cast.ToString(getOrReturnDefault("ENVIRONMENT", "dev"))
+	cfg.LoggerLevel = cast.ToString(getOrReturnDefault("LOGGER_LEVEL", "debug"))
+
+	cfg.BudgetServiceGrpcHost = cast.ToString(getOrReturnDefault("BUDGET_SERVICE_GRPC_HOST", "localhost"))
+	cfg.BudgetServiceGrpcPort = cast.ToString(getOrReturnDefault("BUDGET_SERVICE_GRPC_PORT", ":8082"))
+
+	return cfg
 }
 
-func Coalesce(key string, defaultValue interface{}) interface{} {
-	if value, ok := os.LookupEnv(key); ok {
+func getOrReturnDefault(key string, defaultValue interface{}) interface{} {
+	value := os.Getenv(key)
+	if value != "" {
 		return value
 	}
+
 	return defaultValue
 }
