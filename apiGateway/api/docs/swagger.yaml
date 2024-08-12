@@ -1,0 +1,1452 @@
+definitions:
+  models.Account:
+    properties:
+      balance:
+        type: number
+      createdAt:
+        type: string
+      currency:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      type:
+        type: string
+      updatedAt:
+        type: string
+      userId:
+        type: string
+    type: object
+  models.AccountsResponse:
+    properties:
+      accounts:
+        items:
+          $ref: '#/definitions/models.Account'
+        type: array
+      count:
+        type: integer
+    type: object
+  models.Budget:
+    properties:
+      amount:
+        type: number
+      categoryId:
+        type: string
+      createdAt:
+        type: string
+      endTime:
+        type: string
+      id:
+        type: string
+      period:
+        type: string
+      startTime:
+        type: string
+      updatedAt:
+        type: string
+      userId:
+        type: string
+    type: object
+  models.BudgetsResponse:
+    properties:
+      budgets:
+        items:
+          $ref: '#/definitions/models.Budget'
+        type: array
+      count:
+        type: integer
+    type: object
+  models.CategoriesResponse:
+    properties:
+      categories:
+        items:
+          $ref: '#/definitions/models.Category'
+        type: array
+      count:
+        type: integer
+    type: object
+  models.Category:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      type:
+        type: string
+      updatedAt:
+        type: string
+      userId:
+        type: string
+    type: object
+  models.CreateAccount:
+    properties:
+      balance:
+        type: number
+      currency:
+        type: string
+      name:
+        type: string
+      type:
+        type: string
+      userId:
+        type: string
+    type: object
+  models.CreateBudget:
+    properties:
+      amount:
+        type: number
+      categoryId:
+        type: string
+      endTime:
+        type: string
+      period:
+        type: string
+      startTime:
+        type: string
+      userId:
+        type: string
+    type: object
+  models.CreateCategory:
+    properties:
+      name:
+        type: string
+      type:
+        type: string
+      userId:
+        type: string
+    type: object
+  models.CreateGoal:
+    properties:
+      current_amount:
+        type: number
+      deadline:
+        type: string
+      name:
+        type: string
+      status:
+        type: string
+      target_amount:
+        type: number
+      type:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.GetUserMoneyResponse:
+    properties:
+      categoryId:
+        type: string
+      time:
+        type: string
+      totalAmount:
+        type: string
+    type: object
+  models.Goal:
+    properties:
+      _id:
+        type: string
+      created_at:
+        type: string
+      current_amount:
+        type: number
+      deadline:
+        type: string
+      name:
+        type: string
+      status:
+        type: string
+      target_amount:
+        type: number
+      type:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.GoalsResponse:
+    properties:
+      count:
+        type: integer
+      goals:
+        items:
+          $ref: '#/definitions/models.Goal'
+        type: array
+    type: object
+  models.Response:
+    properties:
+      data: {}
+      description:
+        type: string
+      statusCode:
+        type: integer
+    type: object
+  models.Transaction:
+    properties:
+      accountId:
+        type: string
+      amount:
+        type: number
+      categoryId:
+        type: string
+      createdAt:
+        type: string
+      date:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      typed:
+        type: string
+      updatedAt:
+        type: string
+      userId:
+        type: string
+    type: object
+  models.TransactionsResponse:
+    properties:
+      count:
+        type: integer
+      transactions:
+        items:
+          $ref: '#/definitions/models.Transaction'
+        type: array
+    type: object
+  models.UpdateAccount:
+    properties:
+      balance:
+        type: number
+      currency:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      type:
+        type: string
+      userId:
+        type: string
+    type: object
+  models.UpdateBudget:
+    properties:
+      amount:
+        type: number
+      categoryId:
+        type: string
+      endTime:
+        type: string
+      id:
+        type: string
+      period:
+        type: string
+      startTime:
+        type: string
+      userId:
+        type: string
+    type: object
+  models.UpdateCategory:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      type:
+        type: string
+      userId:
+        type: string
+    type: object
+  models.UpdateGoal:
+    properties:
+      current_amount:
+        type: number
+      deadline:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      status:
+        type: string
+      target_amount:
+        type: number
+      type:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.UpdateTransaction:
+    properties:
+      accountId:
+        type: string
+      amount:
+        type: number
+      categoryId:
+        type: string
+      date:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      typed:
+        type: string
+      userId:
+        type: string
+    type: object
+  user.ProfileResponse:
+    properties:
+      createdAt:
+        type: string
+      email:
+        type: string
+      fullname:
+        type: string
+      username:
+        type: string
+    type: object
+  user.ProfileUpdateRequest:
+    properties:
+      email:
+        type: string
+      username:
+        type: string
+    type: object
+  user.ProfileUpdateResponse:
+    properties:
+      email:
+        type: string
+      fullname:
+        type: string
+      id:
+        type: string
+      updatedAt:
+        type: string
+      username:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: Personal Finance Tracker
+  title: Personal Finance Tracker API
+  version: "1"
+paths:
+  /budget_service/v1/account:
+    post:
+      consumes:
+      - application/json
+      description: Create a new account
+      parameters:
+      - description: account
+        in: body
+        name: account
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateAccount'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Account'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a new account
+      tags:
+      - account
+  /budget_service/v1/account/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete account
+      parameters:
+      - description: account_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete account
+      tags:
+      - account
+    get:
+      consumes:
+      - application/json
+      description: Get account by id
+      parameters:
+      - description: account_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Account'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get account by id
+      tags:
+      - account
+    put:
+      consumes:
+      - application/json
+      description: Update account
+      parameters:
+      - description: account_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: account
+        in: body
+        name: account
+        schema:
+          $ref: '#/definitions/models.UpdateAccount'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Account'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Update account
+      tags:
+      - account
+  /budget_service/v1/accounts:
+    get:
+      consumes:
+      - application/json
+      description: Get all account
+      parameters:
+      - description: page
+        in: query
+        name: page
+        type: string
+      - description: limit
+        in: query
+        name: limit
+        type: string
+      - description: search
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AccountsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get all account
+      tags:
+      - account
+  /budget_service/v2/budget:
+    post:
+      consumes:
+      - application/json
+      description: Create a new budget
+      parameters:
+      - description: budget
+        in: body
+        name: budget
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateBudget'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Budget'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a new budget
+      tags:
+      - budget
+  /budget_service/v2/budget/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete budget
+      parameters:
+      - description: budget_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete budget
+      tags:
+      - budget
+    get:
+      consumes:
+      - application/json
+      description: Get budget by id
+      parameters:
+      - description: budget_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Budget'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get budget by id
+      tags:
+      - budget
+    put:
+      consumes:
+      - application/json
+      description: Update budget
+      parameters:
+      - description: budget_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: budget
+        in: body
+        name: budget
+        schema:
+          $ref: '#/definitions/models.UpdateBudget'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Budget'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Update budget
+      tags:
+      - budget
+  /budget_service/v2/budgets:
+    get:
+      consumes:
+      - application/json
+      description: Get all budgets
+      parameters:
+      - description: page
+        in: query
+        name: page
+        type: string
+      - description: limit
+        in: query
+        name: limit
+        type: string
+      - description: search
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BudgetsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get all budgets
+      tags:
+      - budget
+  /budget_service/v3/categories:
+    get:
+      consumes:
+      - application/json
+      description: Get all category
+      parameters:
+      - description: page
+        in: query
+        name: page
+        type: string
+      - description: limit
+        in: query
+        name: limit
+        type: string
+      - description: search
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CategoriesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get all category
+      tags:
+      - category
+  /budget_service/v3/category:
+    post:
+      consumes:
+      - application/json
+      description: Create a new category
+      parameters:
+      - description: category
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateCategory'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Category'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a new category
+      tags:
+      - category
+  /budget_service/v3/category/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete category
+      parameters:
+      - description: category_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete category
+      tags:
+      - category
+    get:
+      consumes:
+      - application/json
+      description: Get category by id
+      parameters:
+      - description: category_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Category'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get category by id
+      tags:
+      - category
+    put:
+      consumes:
+      - application/json
+      description: Update category
+      parameters:
+      - description: category_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: category
+        in: body
+        name: category
+        schema:
+          $ref: '#/definitions/models.UpdateCategory'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Category'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Update category
+      tags:
+      - category
+  /budget_service/v4/goal:
+    post:
+      consumes:
+      - application/json
+      description: Create a new goal
+      parameters:
+      - description: goal
+        in: body
+        name: goal
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateGoal'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Goal'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a new goal
+      tags:
+      - goal
+  /budget_service/v4/goal/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete goal
+      parameters:
+      - description: goal_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete goal
+      tags:
+      - goal
+    get:
+      consumes:
+      - application/json
+      description: Get goal by id
+      parameters:
+      - description: goal_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Goal'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get goal by id
+      tags:
+      - goal
+    put:
+      consumes:
+      - application/json
+      description: Update goal
+      parameters:
+      - description: goal_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: goal
+        in: body
+        name: goal
+        schema:
+          $ref: '#/definitions/models.UpdateGoal'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Goal'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Update goal
+      tags:
+      - goal
+  /budget_service/v4/goals:
+    get:
+      consumes:
+      - application/json
+      description: Get all goal
+      parameters:
+      - description: page
+        in: query
+        name: page
+        type: string
+      - description: limit
+        in: query
+        name: limit
+        type: string
+      - description: search
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GoalsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get all goal
+      tags:
+      - goal
+  /budget_service/v4/goals/report-progress:
+    get:
+      consumes:
+      - application/json
+      description: Get all goal
+      parameters:
+      - description: user_id
+        in: query
+        name: user_id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GoalsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get all goal
+      tags:
+      - goal
+  /budget_service/v5/transaction:
+    post:
+      consumes:
+      - application/json
+      description: Create a new transaction
+      parameters:
+      - description: transaction
+        in: body
+        name: transaction
+        required: true
+        schema:
+          $ref: '#/definitions/models.Transaction'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Transaction'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a new transaction
+      tags:
+      - transaction
+  /budget_service/v5/transaction/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete transaction
+      parameters:
+      - description: transaction_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete transaction
+      tags:
+      - transaction
+    get:
+      consumes:
+      - application/json
+      description: Get transaction by id
+      parameters:
+      - description: transaction_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Transaction'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get transaction by id
+      tags:
+      - transaction
+    put:
+      consumes:
+      - application/json
+      description: Update transaction
+      parameters:
+      - description: transaction_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: transaction
+        in: body
+        name: transaction
+        schema:
+          $ref: '#/definitions/models.UpdateTransaction'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Transaction'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Update transaction
+      tags:
+      - transaction
+  /budget_service/v5/transactions:
+    get:
+      consumes:
+      - application/json
+      description: Get all transaction
+      parameters:
+      - description: page
+        in: query
+        name: page
+        type: string
+      - description: limit
+        in: query
+        name: limit
+        type: string
+      - description: search
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.TransactionsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get all transaction
+      tags:
+      - transaction
+  /budget_service/v5/transactions/income:
+    get:
+      consumes:
+      - application/json
+      description: Get all transaction
+      parameters:
+      - description: user_id
+        in: query
+        name: user_id
+        type: string
+      - description: start_time
+        in: query
+        name: start_time
+        type: string
+      - description: end_time
+        in: query
+        name: end_time
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetUserMoneyResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get all transaction
+      tags:
+      - transaction
+  /budget_service/v5/transactions/spend:
+    get:
+      consumes:
+      - application/json
+      description: Get all transaction
+      parameters:
+      - description: user_id
+        in: query
+        name: user_id
+        type: string
+      - description: start_time
+        in: query
+        name: start_time
+        type: string
+      - description: end_time
+        in: query
+        name: end_time
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetUserMoneyResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get all transaction
+      tags:
+      - transaction
+  /updateprofile:
+    put:
+      consumes:
+      - application/json
+      description: Update user Profile
+      parameters:
+      - description: User update profile request
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/user.ProfileUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.ProfileUpdateResponse'
+        "400":
+          description: Bad request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update user Profile
+      tags:
+      - auth
+  /userprofile/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a user profile by user ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.ProfileResponse'
+        "400":
+          description: Bad request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: UserProfile a user
+      tags:
+      - auth
+swagger: "2.0"
