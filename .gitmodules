@@ -10,3 +10,6 @@
 [submodule "budgetService/new-directory-name"]
 	path = budgetService/new-directory-name
 	url = git@github.com:HusanRukhitdinov/protos.git
+[submodule "apiGateway/protos"]
+	path = apiGateway/protos
+	url = git@github.com:HusanRukhitdinov/protos.git
