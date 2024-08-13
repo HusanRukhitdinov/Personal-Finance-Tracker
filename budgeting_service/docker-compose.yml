@@ -1,0 +1,61 @@
+
+
+#   # RabbitMQ Service ketadi
+#   # rabbitmq:
+#   #   container_name: rabbitmq
+#   #   image: rabbitmq:management
+#   #   networks:
+#   #     - app
+#   #   ports:
+#   #     - "5672:5672"
+#   #     - "15672:15672" 
+#   #   environment:
+#   #     RABBITMQ_DEFAULT_USER: user
+#   #     RABBITMQ_DEFAULT_PASS: 1111
+
+
+
+services:
+  # MongoDB Service
+  mongodb:
+    container_name: mongo-db
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongosh
+      MONGO_INITDB_ROOT_PASSWORD: 1111
+      MONGO_INITDB_DATABASE: budget_service
+    networks:
+      - app
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb:/data/db
+
+  # Redis Service
+  redis:
+    container_name: redis
+    image: redis:latest
+    networks:
+      - app
+    ports:
+      - "6379:6379"
+
+  budget_service:
+    container_name: budget_service1
+    build: .
+    depends_on:
+      - mongodb
+      - redis
+    ports:
+      - "8082:8082"
+    networks:
+      - app
+
+volumes:
+  mongodb:
+
+networks:
+  app:
+    external: true
+    name: app
+    driver: bridge
