@@ -42,7 +42,7 @@ func Load() Config {
 	cfg.ServiceName = cast.ToString(getOrReturnDefault("SERVICE_NAME", "budget"))
 	cfg.LoggerLevel = cast.ToString(getOrReturnDefault("LOGGER_LEVEL", "debug"))
 
-	cfg.BudgetServiceGrpcHost = cast.ToString(getOrReturnDefault("BUDGET_SERVICE_GRPC_HOST", "localhost"))
+	cfg.BudgetServiceGrpcHost = cast.ToString(getOrReturnDefault("BUDGET_SERVICE_GRPC_HOST", "budget_service1"))
 	cfg.BudgetServiceGrpcPort = cast.ToString(getOrReturnDefault("BUDGET_SERVICE_GRPC_PORT", ":8082"))
 
 	return cfg

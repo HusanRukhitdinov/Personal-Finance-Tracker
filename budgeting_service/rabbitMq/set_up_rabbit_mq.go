@@ -16,10 +16,10 @@ func SetUpConsumers(log logger.ILogger, mongoStore storage.IStorage) {
 	for _, queueName := range queues {
 		go func(queueName string) {
 			for {
-				readerMq, err := NewRabbitMqConsumerImpl("amqp://user:1111@localhost:5672/", queueName, mongoStore)
+				readerMq, err := NewRabbitMqConsumerImpl("amqp://user:1111@rabbitmq:5672/", queueName, mongoStore)
 				if err != nil {
 					log.Error("Error while creating RabbitMQ consumer for "+queueName, logger.Error(err))
-					time.Sleep(5 * time.Second) // Retry after a delay
+					time.Sleep(10 * time.Second) // Retry after a delay
 					continue
 				}
 				// defer func() {

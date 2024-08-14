@@ -2,8 +2,10 @@ package rabbitMq
 
 import (
 	"budgeting_service/storage"
-	"github.com/streadway/amqp"
 	"log"
+	"time"
+
+	"github.com/streadway/amqp"
 )
 
 type ConsumerRabbitMq interface {
@@ -19,10 +21,21 @@ type RabbitMqConsumerImpl struct {
 }
 
 func NewRabbitMqConsumerImpl(url string, queue string, storage storage.IStorage) (*RabbitMqConsumerImpl, error) {
-	conn, err := amqp.Dial(url)
-	if err != nil {
-		return nil, err
+	var err error
+	var conn *amqp.Connection
+	for i := 0; i < 10; i++ {
+		conn, err = amqp.Dial(url)
+		if err != nil {
+			log.Println("Failed to connect to RabbitMQ")
+			time.Sleep(1 * time.Second)
+			continue
+		}
 	}
+
+	// conn, err := amqp.Dial(url)
+	// if err != nil {
+	// 	return nil, err
+	// }
 
 	channel, err := conn.Channel()
 	if err != nil {
