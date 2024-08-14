@@ -1,0 +1,109 @@
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongo-db
+    ports:
+      - "27018:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongosh
+      MONGO_INITDB_ROOT_PASSWORD: "1111"
+    volumes:
+      - mongodb:/data/db
+    networks:
+      - app
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6378:6379"
+    networks:
+      - app
+
+  budget_service:
+    container_name: budget_service1
+    build: ./budgeting_service
+    ports:
+      - "8082:8082"
+    networks:
+      - app
+    depends_on:
+      - mongodb
+      - redis
+  
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports:
+      - "5673:5672"    
+      # - "15673:15672"  
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: 1111
+    networks:
+      - app
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "rabbitmq-diagnostics -q ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  api-service:
+    container_name: api-gateway
+    build: ./api_gateway
+    depends_on:
+      - rabbitmq
+      - mongodb
+      - redis
+    ports:
+      - "8080:8080"  # Ensure this port is available and not conflicting
+    networks:
+     - app
+
+  db:
+    container_name: postgres-db
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: tracker_auth
+    networks:
+      - app
+    ports:
+      - "5430:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  migration:
+    image: migrate/migrate
+    networks:
+      - app
+    volumes:
+      - ./authService/migrations:/migrations
+    command: [ "-path", "/migrations", "-database", "postgres://postgres:pass@postgres-db:5432/tracker_auth?sslmode=disable", "up" ]
+    depends_on:
+      - db
+
+      
+  auth-services:
+    container_name: auth-services1
+    build: ./authService
+    networks:
+      - app
+    ports:
+      - "8081:8081"  
+    depends_on:
+      - db
+
+networks:
+  app:
+    external: true
+
+volumes:
+  mongodb:
+  rabbitmq_data:
+  db-data:
