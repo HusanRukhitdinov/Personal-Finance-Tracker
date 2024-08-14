@@ -36,8 +36,8 @@ func (s *Server) NewRouter() *gin.Engine {
 	api.POST("/register", s.AuthHandler.RegisterUser)
 	api.POST("/login", s.AuthHandler.LoginUser)
 	api.POST("/logout", s.AuthHandler.Logout)
-	api.GET("/userprofile/:id", s.AuthHandler.UserProfile)
-	api.PUT("/updateprofile", s.AuthHandler.UpdateUserProfile)
+	// api.GET("/userprofile/:id", s.AuthHandler.UserProfile)
+	// api.PUT("/updateprofile", s.AuthHandler.UpdateUserProfile)
 	
 
 	return router

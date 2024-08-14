@@ -16,8 +16,8 @@ type AuthenticaionHandler interface {
 	RegisterUser(c *gin.Context)
 	LoginUser(c *gin.Context)
 	Logout(c *gin.Context)
-	UserProfile(c *gin.Context)
-	UpdateUserProfile(c *gin.Context)
+	// UserProfile(c *gin.Context)
+	// UpdateUserProfile(c *gin.Context)
 }
 
 type AuthenticaionHandlerImpl struct {
@@ -124,67 +124,67 @@ func (h *AuthenticaionHandlerImpl) Logout(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 }
 
-// @Summary      UserProfile a user
-// @Description  Retrieve a user profile by user ID
-// @Tags         auth
-// @Accept       json
-// @Produce      json
-// @Param        id  path     string  true  "User ID"
-// @Success      200   {object}  user.ProfileResponse
-// @Failure      400   {object}  map[string]string    "Bad request"
-// @Failure      500   {object}  map[string]string    "Internal server error"
-// @Router       /userprofile/{id} [GET]
-func (h *AuthenticaionHandlerImpl) UserProfile(c *gin.Context) {
-    id := c.Param("id") 
-	fmt.Println("))))",id)
-    if id == "" {
-        errMsg := "User ID is required"
-        h.Logger.Error(errMsg)
-        c.JSON(http.StatusBadRequest, map[string]string{"error": errMsg})
-        return
-    }
+// // @Summary      UserProfile a user
+// // @Description  Retrieve a user profile by user ID
+// // @Tags         auth
+// // @Accept       json
+// // @Produce      json
+// // @Param        id  path     string  true  "User ID"
+// // @Success      200   {object}  user.ProfileResponse
+// // @Failure      400   {object}  map[string]string    "Bad request"
+// // @Failure      500   {object}  map[string]string    "Internal server error"
+// // @Router       /userprofile/{id} [GET]
+// func (h *AuthenticaionHandlerImpl) UserProfile(c *gin.Context) {
+//     id := c.Param("id") 
+// 	fmt.Println("))))",id)
+//     if id == "" {
+//         errMsg := "User ID is required"
+//         h.Logger.Error(errMsg)
+//         c.JSON(http.StatusBadRequest, map[string]string{"error": errMsg})
+//         return
+//     }
 	
-    req := &pb.ProfileRequest{Id: id}
+//     req := &pb.ProfileRequest{Id: id}
 	
-	fmt.Println("+++",req)
-    resp, err := h.UserManage.GetUserProfile(c, req)
-    if err != nil {
-        h.Logger.Error(err.Error())
-        c.JSON(http.StatusInternalServerError, map[string]string{"error": "Internal server error"})
-        return
-    }
+// 	fmt.Println("+++",req)
+//     resp, err := h.UserManage.GetUserProfile(c, req)
+//     if err != nil {
+//         h.Logger.Error(err.Error())
+//         c.JSON(http.StatusInternalServerError, map[string]string{"error": "Internal server error"})
+//         return
+//     }
 
-    c.JSON(http.StatusOK, resp)
-}
+//     c.JSON(http.StatusOK, resp)
+// }
 
 
-// @Summary      Update user Profile
-// @Description  Update user Profile
-// @Tags         auth
-// @Accept       json
-// @Produce      json
-// @Param        user  body     user.ProfileUpdateRequest  true  "User update profile request"
-// @Success      200   {object}  user.ProfileUpdateResponse
-// @Failure      400   {object}  map[string]string    "Bad request"
-// @Failure      500   {object}  map[string]string    "Internal server error"
-// @Router       /updateprofile [PUT]
-func (h *AuthenticaionHandlerImpl) UpdateUserProfile(c *gin.Context) {
-	req := pb.ProfileUpdateRequest{}
-	fmt.Println("-----",&req)
+// // @Summary      Update user Profile
+// // @Description  Update user Profile
+// // @Tags         auth
+// // @Accept       json
+// // @Produce      json
+// // @Param        user  body     user.ProfileUpdateRequest  true  "User update profile request"
+// // @Success      200   {object}  user.ProfileUpdateResponse
+// // @Failure      400   {object}  map[string]string    "Bad request"
+// // @Failure      500   {object}  map[string]string    "Internal server error"
+// // @Router       /updateprofile [PUT]
+// func (h *AuthenticaionHandlerImpl) UpdateUserProfile(c *gin.Context) {
+// 	req := pb.ProfileUpdateRequest{}
+// 	fmt.Println("-----",&req)
 
-	err := json.NewDecoder(c.Request.Body).Decode(&req)
-	if err != nil {
-		h.Logger.Error(err.Error())
-		c.JSON(http.StatusBadRequest, err)
-		return
-	}
+// 	err := json.NewDecoder(c.Request.Body).Decode(&req)
+// 	if err != nil {
+// 		h.Logger.Error(err.Error())
+// 		c.JSON(http.StatusBadRequest, err)
+// 		return
+// 	}
 
-	resp, err := h.UserManage.UpdateUserProfile(c, &req)
-	if err != nil {
-		h.Logger.Error(err.Error())
-		c.JSON(http.StatusInternalServerError, err)
-		return
-	}
+// 	resp, err := h.UserManage.UpdateUserProfile(c, &req)
+// 	if err != nil {
+// 		h.Logger.Error(err.Error())
+// 		c.JSON(http.StatusInternalServerError, err)
+// 		return
+// 	}
 
-	c.JSON(http.StatusOK, resp)
-}
+// 	c.JSON(http.StatusOK, resp)
+// }

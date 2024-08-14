@@ -46,7 +46,7 @@ func main() {
 	// gRPC serverni TCP portda tinglash
 	go func() {
 
-		liss, err := net.Listen("tcp", "localhost"+config.Load().HTTP_PORT)
+		liss, err := net.Listen("tcp", "auth-services1"+config.Load().HTTP_PORT)
 		if err != nil {
 			log.Error("...", "Error while listening on TCP: %v", err)
 			return
@@ -61,33 +61,6 @@ func main() {
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
-	// Goroutine'larni kutish
-	// wg.Wait()
+	
 }
 
-// 	go func() {
-// 		fmt.Printf("Server is listening on port %s\n", config.Load().Server.USER_PORT)
-// 		auth := api.NewServer(authHandler)
-// 		router := auth.NewRouter()
-// 		if err := router.Run("localhost:8080"); err != nil {
-// 			log.Error("server error", "Error while running HTTP server: %v", err)
-// 		}
-// 	}()
-
-// 	go func() {
-
-// 		liss, err := net.Listen("tcp", "localhost"+config.Load().Postgres.DB_PORT)
-// 		if err != nil {
-// 			log.Error("...", "Error while listening on TCP: %v", err)
-// 			return
-// 		}
-
-// 		if err := s.Serve(liss); err != nil {
-// 			log.Error("service not listening", "Failed to serve: %v", err)
-// 		}
-// 	}()
-
-// 	quit := make(chan os.Signal, 1)
-// 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-// 	<-quit
-// }

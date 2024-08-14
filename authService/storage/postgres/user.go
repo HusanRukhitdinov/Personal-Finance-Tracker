@@ -15,12 +15,9 @@ import (
 type IUserStorages interface {
 	RegisterUser(ctx context.Context, req *pb.RegisterRequest) (*pb.RegisterResponse, error)
 	LoginUser(ctx context.Context, req *pb.LoginRequest) (*pb.LoginResponse, error)
-	// ValidateToken(ctx context.Context, req *pb.ValidateTokenRequest) (*pb.ValidateTokenResponse, error)
-	// RefreshToken(ctx context.Context, req *pb.RefreshTokenRequest) (*pb.RefreshTokenResponse, error)
 	Logout(ctx context.Context, token *pb.LogoutRequest) (*pb.Message, error)
 	GetUserProfile(ctx context.Context, req *pb.ProfileRequest) (*pb.ProfileResponse, error)
 	UpdateUserProfile(ctx context.Context, req *pb.ProfileUpdateRequest) (*pb.ProfileUpdateResponse, error)
-	// SaveToken(ctx context.Context, req *pb.Token) (*pb.Void, error)
 }
 type UserRepository struct {
 	Db  *sql.DB
@@ -84,61 +81,6 @@ func (u *UserRepository) LoginUser(ctx context.Context, req *pb.LoginRequest) (*
 
 }
 
-// func (u *UserRepository) ValidateToken(ctx context.Context, req *pb.ValidateTokenRequest) (*pb.ValidateTokenResponse, error) {
-// 	resp := &pb.ValidateTokenResponse{}
-
-// 	tokenQuery := `
-//         SELECT user_id,is_valid
-// 		FROM token
-//         WHERE token = $1
-// 		AND is_valid = true
-//     `
-
-// 	err := u.Db.QueryRowContext(ctx, tokenQuery, req.Token).Scan(&resp.UserId, &resp.IsValid)
-
-// 	if err == sql.ErrNoRows {
-// 		resp.IsValid = false
-// 		return resp, nil
-// 	} else if err != nil {
-// 		return nil, fmt.Errorf("failed to validate token: %w", err)
-// 	}
-
-// 	resp.IsValid = true
-// 	return resp, nil
-// }
-
-// func (u *UserRepository) RefreshToken(ctx context.Context, req *pb.RefreshTokenRequest) (*pb.RefreshTokenResponse, error) {
-// 	newRefreshToken, err := generateNewRefreshToken()
-// 	if err != nil {
-// 		return nil, fmt.Errorf("failed to generate new refresh token: %w", err)
-// 	}
-
-// 	updateQuery := `
-//         UPDATE token
-//         SET token = $1
-//         WHERE token = $2
-//         RETURNING id and
-//     `
-
-// 	var userID string
-// 	err = u.Db.QueryRowContext(ctx, updateQuery, newRefreshToken, time.Now(), req.Token).Scan(&userID)
-// 	if err == sql.ErrNoRows {
-// 		return nil, fmt.Errorf("invalid refresh token")
-// 	} else if err != nil {
-// 		return nil, fmt.Errorf("failed to update refresh token: %w", err)
-// 	}
-
-// 	return &pb.RefreshTokenResponse{
-// 		UserId:          userID,
-// 		NewRefreshToken: newRefreshToken,
-// 	}, nil
-// }
-
-// func generateNewRefreshToken() (string, error) {
-// 	newRefreshToken := "new_refresh_token"
-
-//		return newRefreshToken, nil
-//	}
 func (a *UserRepository) Logout(ctx context.Context, token *pb.LogoutRequest) (*pb.Message, error) {
 	_, err := a.Db.Exec(`
 	update 
@@ -221,11 +163,4 @@ func (u *UserRepository) UpdateUserProfile(ctx context.Context, req *pb.ProfileU
 	return &resp, nil
 }
 
-// func (u *UserRepository) SaveToken(ctx context.Context, req *pb.Token) (*pb.Void, error) {
-// 	query := `insert into token (token) values ($1)`
-// 	err := u.Db.QueryRow(query, req.Token)
-// 	if err != nil {
-// 		return nil, nil
-// 	}
-// 	return nil,nil
-// }
+
