@@ -13,11 +13,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-type GoalMongo struct {
-	Coll *mongo.Collection
-	log  logger.ILogger
-}
-
 type Store struct {
 	client    *mongo.Client
 	db        *mongo.Database
@@ -26,32 +21,25 @@ type Store struct {
 	redisCash *redis.RedisRepo
 }
 
+// Accounts returns a new instance of AccountMongo with necessary dependencies
 func (s *Store) Accounts() storage.IAccountStorage {
-	return NewAccountMongo(s.db.Collection("account"), s.log, s.redisCash)
+	return NewAccountMongoStore(s.db.Collection("account"), s.log, s.redisCash)
 }
 
 func (s *Store) Categories() storage.ICategoryStorage {
-	return NewCategoryMongo(s.db.Collection("category"), s.log)
+	return NewCategoryMongoStore(s.db.Collection("category"), s.log)
 }
 
 func (s *Store) Budgets() storage.IBudgetStorage {
-	return NewBudgetMongo(s.db.Collection("budget"), s.log)
-}
-
-func NewGoalMongo(db *mongo.Collection, lg logger.ILogger) storage.IGoalStorage {
-	return &GoalMongo{
-		Coll: db,
-		log:  lg,
-	}
+	return NewBudgetMongoStore(s.db.Collection("budget"), s.log)
 }
 
 func (s *Store) Goals() storage.IGoalStorage {
-	fmt.Println("husanbek")
-	return NewGoalMongo(s.db.Collection("goal"), s.log)
+	return NewGoalMongoStore(s.db.Collection("goal"), s.log)
 }
 
 func (s *Store) Transactions() storage.ITransactionStorage {
-	return NewTransactionMongo(s.db.Collection("transaction"), s.log)
+	return NewTransactionMongoStore(s.db.Collection("transaction"), s.log)
 }
 
 func NewStore(ctx context.Context, cfg configs.Config, log logger.ILogger, redisCash *redis.RedisRepo) (*Store, error) {
@@ -66,7 +54,7 @@ func NewStore(ctx context.Context, cfg configs.Config, log logger.ILogger, redis
 
 	clientOptions := options.Client().ApplyURI(uri).
 		SetMaxPoolSize(100).
-		SetConnectTimeout(10 * time.Second)
+		SetConnectTimeout(1 * time.Minute)
 
 	client, err := mongo.Connect(ctx, clientOptions)
 	if err != nil {
@@ -91,6 +79,7 @@ func NewStore(ctx context.Context, cfg configs.Config, log logger.ILogger, redis
 	}, nil
 }
 
+// Close disconnects the MongoDB client
 func (s *Store) Close() {
 	if err := s.client.Disconnect(context.Background()); err != nil {
 		s.log.Error("Error disconnecting from MongoDB", logger.Error(err))

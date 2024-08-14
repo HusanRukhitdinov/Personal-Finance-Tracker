@@ -1,22 +1,16 @@
 package mongo
 
-import "C"
 import (
 	pb "budgeting_service/genproto/budgeting_service"
 	"budgeting_service/pkg/logger"
 	"context"
-	_ "database/sql"
 	"fmt"
-	"time"
-
 	"go.mongodb.org/mongo-driver/bson"
-	_ "go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	_ "go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
-	_ "go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"google.golang.org/protobuf/types/known/emptypb"
+	"time"
 )
 
 type Goal struct {
@@ -31,6 +25,18 @@ type Goal struct {
 
 	CreatedAt time.Time `bson:"created_at" json:"created_at"`
 	UpdatedAt time.Time `bson:"updated_at" json:"updated_at"`
+}
+
+type GoalMongo struct {
+	Coll *mongo.Collection
+	log  logger.ILogger
+}
+
+func NewGoalMongoStore(db *mongo.Collection, lg logger.ILogger) *GoalMongo {
+	return &GoalMongo{
+		Coll: db,
+		log:  lg,
+	}
 }
 
 func (mongodb *GoalMongo) CreateGoal(ctx context.Context, request *pb.GoalRequest) (*pb.Goal, error) {

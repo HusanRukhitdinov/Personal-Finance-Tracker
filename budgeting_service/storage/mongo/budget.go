@@ -32,7 +32,7 @@ type BudgetMongo struct {
 	log  logger.ILogger
 }
 
-func NewBudgetMongo(db *mongo.Collection, lg logger.ILogger) *BudgetMongo {
+func NewBudgetMongoStore(db *mongo.Collection, lg logger.ILogger) *BudgetMongo {
 	return &BudgetMongo{
 		Coll: db,
 		log:  lg,

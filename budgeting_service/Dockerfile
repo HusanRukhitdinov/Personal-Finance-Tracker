@@ -5,14 +5,10 @@ WORKDIR /app
 COPY . .
 
 RUN go mod download
-# RUN go mod tidy
+RUN go mod tidy
 
-# RUN go mod download 
-
-COPY .env .
-
-RUN CGO_ENABLED=0 GOOS=linux go build -C ./cmd -a -installsuffix cgo -o ./../myapp .
-
+# Build the Go application
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o myapp ./cmd
 
 FROM alpine:latest
 

@@ -20,7 +20,7 @@ import (
 )
 
 type Account struct {
-	ID        primitive.ObjectID `bson:"_id,omitempty" bson:"_id"`
+	ID        primitive.ObjectID `bson:"_id,omitempty"bson:"_id"`
 	UserId    string             `bson:"user_id" json:"user_id"`
 	Name      string             `bson:"name" json:"name"`
 	Type      string             `bson:"type" json:"type"`
@@ -36,7 +36,7 @@ type AccountMongo struct {
 	cash *redis.RedisRepo
 }
 
-func NewAccountMongo(collection *mongo.Collection, log logger.ILogger, redisCash *redis.RedisRepo) storage.IAccountStorage {
+func NewAccountMongoStore(collection *mongo.Collection, log logger.ILogger, redisCash *redis.RedisRepo) storage.IAccountStorage {
 	return &AccountMongo{
 		Coll: collection,
 		log:  log,

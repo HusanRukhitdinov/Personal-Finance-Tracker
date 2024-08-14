@@ -23,7 +23,7 @@ type TransactionMongo struct {
 	log  logger.ILogger
 }
 
-func NewTransactionMongo(db *mongo.Collection, lg logger.ILogger) *TransactionMongo {
+func NewTransactionMongoStore(db *mongo.Collection, lg logger.ILogger) *TransactionMongo {
 	return &TransactionMongo{
 		Coll: db,
 		log:  lg,

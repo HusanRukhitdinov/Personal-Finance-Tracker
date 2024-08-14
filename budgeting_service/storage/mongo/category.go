@@ -31,7 +31,7 @@ type CategoryMongo struct {
 	log  logger.ILogger
 }
 
-func NewCategoryMongo(db *mongo.Collection, lg logger.ILogger) *CategoryMongo {
+func NewCategoryMongoStore(db *mongo.Collection, lg logger.ILogger) *CategoryMongo {
 	return &CategoryMongo{
 		Coll: db,
 		log:  lg,
