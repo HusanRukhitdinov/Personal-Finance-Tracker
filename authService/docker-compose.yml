@@ -1,6 +1,54 @@
-version: '3.9'
-services:
+# version: '3.9'
+# services:
 
+#   db:
+#     container_name: postgres-db
+#     image: postgres:latest
+#     environment:
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: pass
+#       POSTGRES_DB: tracker_auth
+#     networks:
+#       - app
+#     ports:
+#       - "5430:5432"
+#     volumes:
+#       - db-data:/var/lib/postgresql/data
+
+#   migration:
+#     image: migrate/migrate
+#     networks:
+#       - app
+#     volumes:
+#       - ./migrations:/migrations
+#     command: [ "-path", "./migrations", "-database", "postgres://postgres:pass@postgres-db:5432/tracker_auth?sslmode=disable", "up" ]
+#     depends_on:
+#       - db
+  
+#   auth-services:
+#     container_name: auth-services1
+#     build: .
+#     networks:
+#       - app
+#     ports:
+#       - "8081:8081"  
+#     depends_on:
+#       - db
+
+# volumes:
+#   db-data:
+
+# networks:
+#   app:
+#     external: true
+#     name: app
+#     driver: bridge
+
+
+
+version: '3.9'
+
+services:
   db:
     container_name: postgres-db
     image: postgres:latest
@@ -21,7 +69,7 @@ services:
       - app
     volumes:
       - ./migrations:/migrations
-    command: [ "-path", "./migrations", "-database", "postgres://postgres:pass@postgres-db:5432/tracker_auth?sslmode=disable", "up" ]
+    command: [ "-path", "/migrations", "-database", "postgres://postgres:pass@postgres-db:5432/tracker_auth?sslmode=disable", "up" ]
     depends_on:
       - db
   
@@ -40,6 +88,3 @@ volumes:
 
 networks:
   app:
-    external: true
-    name: app
-    driver: bridge
