@@ -8,6 +8,8 @@ import (
 	"api_gateway/pkg/logger"
 	"api_gateway/rabbitMq"
 	"fmt"
+	"time"
+
 	"github.com/casbin/casbin/v2"
 
 	"github.com/gin-gonic/gin"
@@ -38,7 +40,7 @@ func main() {
 		log.Error("Error while initializing grpc clients", logger.Error(err))
 		return
 	}
-	writer, err := rabbitMq.NewRabbitMqProducerInt("amqp://users:1111@localhost:5672/")
+	writer, err := rabbitMq.NewRabbitMqProducerInt("amqp://users:1111@rabbitmq:5672/")
 	if err != nil {
 		log.Error("this error is newRabbitMq", logger.Error(err))
 		return
@@ -52,7 +54,7 @@ func main() {
 
 	}
 	r := api.New(h, enforcer)
-
+	time.Sleep(10 * time.Second)
 	log.Info("Server is running ...", logger.Any("port", cfg.HTTPort))
 	if err = r.Run(cfg.HTTPort); err != nil {
 		log.Error("Error while running server", logger.Error(err))

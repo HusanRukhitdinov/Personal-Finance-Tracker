@@ -30,16 +30,16 @@ func Load() Config {
 
 	cfg := Config{}
 
-	cfg.ServiceName = cast.ToString(getOrReturnDefault("SERVICE_NAME", "api_gateway"))
+	cfg.ServiceName = cast.ToString(getOrReturnDefault("SERVICE_NAME", "api-gateway"))
 	// cfg.Environment = cast.ToString(getOrReturnDefault("ENVIRONMENT", "dev"))
 	cfg.LoggerLevel = cast.ToString(getOrReturnDefault("LOGGER_LEVEL", "debug"))
 	// HTTP PORT 8080
 	cfg.HTTPort = cast.ToString(getOrReturnDefault("HTTP_PORT", ":8080"))
 	// BUDGET SERVICE 8081
-	cfg.BudgetServiceGrpcHost = cast.ToString(getOrReturnDefault("BUDGET_SERVICE_GRPC_HOST", "localhost"))
+	cfg.BudgetServiceGrpcHost = cast.ToString(getOrReturnDefault("BUDGET_SERVICE_GRPC_HOST", "budget_service1"))
 	cfg.BudgetServiceGrpcPort = cast.ToString(getOrReturnDefault("BUDGET_SERVICE_GRPC_PORT", ":8082"))
 	// USER SERVICE 8082
-	cfg.UserServiceGrpcHost = cast.ToString(getOrReturnDefault("USER_SERVICE_GRPC_HOST", "localhost"))
+	cfg.UserServiceGrpcHost = cast.ToString(getOrReturnDefault("USER_SERVICE_GRPC_HOST", "postgres-db"))
 	cfg.UserServiceGrpcPort = cast.ToString(getOrReturnDefault("USER_SERVICE_GRPC_PORT", ":8081"))
 
 	return cfg

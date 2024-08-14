@@ -4,11 +4,12 @@ import (
 	"api_gateway/api/handler"
 	"api_gateway/api/middleware"
 	"fmt"
+	"log"
+	"time"
+
 	"github.com/casbin/casbin/v2"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"log"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	cors "github.com/itsjamie/gin-cors"
@@ -30,7 +31,7 @@ import (
 // @in header
 // @name Authorization
 func New(h handler.Handler, enforcer *casbin.Enforcer) *gin.Engine {
-	r := gin.New()
+	r := gin.Default()
 
 	r.Use(cors.Middleware(cors.Config{
 		Origins:        "*",

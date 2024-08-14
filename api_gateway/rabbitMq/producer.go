@@ -2,6 +2,9 @@ package rabbitMq
 
 import (
 	"fmt"
+	"log"
+	"time"
+
 	"github.com/streadway/amqp"
 	_ "github.com/streadway/amqp"
 )
@@ -17,11 +20,22 @@ type RabbitMqProducerInt struct {
 }
 
 func NewRabbitMqProducerInt(url string) (*RabbitMqProducerInt, error) {
-	conn, err := amqp.Dial(url)
-	if err != nil {
-		return nil, err
+	var err error
+	var conn *amqp.Connection
+	for i := 0; i < 10; i++ {
+		conn, err = amqp.Dial(url)
+		if err != nil {
+			log.Println("Failed to connect to RabbitMQ")
+			time.Sleep(1 * time.Second)
+			continue
+		}
 	}
-	channel, err := conn.Channel()
+
+	// conn, err := amqp.Dial(url)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	channel, _ := conn.Channel()
 	return &RabbitMqProducerInt{
 		conn:    conn,
 		channel: channel,
