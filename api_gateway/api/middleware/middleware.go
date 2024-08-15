@@ -53,7 +53,7 @@ func CasbinMiddleware(enforcer *casbin.Enforcer) gin.HandlerFunc {
 		if !ok {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Invalid claims"})
 			return
-		}
+		}	
 
 		sub, ok := jwtClaims["role"].(string)
 		if !ok {

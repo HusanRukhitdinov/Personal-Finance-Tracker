@@ -25,7 +25,6 @@ import (
 // @contact.email   support@swagger.io
 // @license.name    Apache 2.0
 // @license.url     http://www.apache.org/licenses/LICENSE-2.0.html
-// @host            localhost:8080
 // @BasePath        /
 // @securityDefinitions.apikey BearerAuth
 // @in header
@@ -40,6 +39,13 @@ func New(h handler.Handler, enforcer *casbin.Enforcer) *gin.Engine {
 	}))
 
 	r.Use(traceRequest)
+
+	user := r.Group("/user_service/v6/user")
+	{
+		user.GET("/:id", h.GetUserHandler)
+		user.PUT("update/:id", h.UpdateUserProfileHandler)
+
+	}
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.Use(middleware.JWTMiddleware())
@@ -100,12 +106,7 @@ func New(h handler.Handler, enforcer *casbin.Enforcer) *gin.Engine {
 
 		}
 	}
-	user := r.Group("/user_service/v6/user")
-	{
-		user.GET("/:id", h.GetUserHandler)
-		user.PUT("update/:id", h.UpdateUserProfileHandler)
-
-	}
+	
 
 	return r
 }

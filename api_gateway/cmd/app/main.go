@@ -40,7 +40,7 @@ func main() {
 		log.Error("Error while initializing grpc clients", logger.Error(err))
 		return
 	}
-	writer, err := rabbitMq.NewRabbitMqProducerInt("amqp://users:1111@rabbitmq:5672/")
+	writer, err := rabbitMq.NewRabbitMqProducerInt("amqp://user:1111@rabbitmq:5672/")
 	if err != nil {
 		log.Error("this error is newRabbitMq", logger.Error(err))
 		return
