@@ -37,7 +37,6 @@ services:
     container_name: rabbitmq
     ports:
       - "5673:5672"    
-      # - "15673:15672"  
     environment:
       RABBITMQ_DEFAULT_USER: user
       RABBITMQ_DEFAULT_PASS: 1111
@@ -95,7 +94,7 @@ services:
     networks:
       - app
     ports:
-      - "8081:8081"  
+      - "8088:8088"  
     depends_on:
       - db
 
