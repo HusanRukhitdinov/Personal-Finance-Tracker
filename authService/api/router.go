@@ -24,7 +24,6 @@ func NewServer(authHandler handler.AuthenticaionHandler) *Server {
 // @contact.name  API Support
 // @license.name  Apache 2.0
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
-// @host          localhost:8081
 // @BasePath      /auth
 func (s *Server) NewRouter() *gin.Engine {
 	router := gin.Default()

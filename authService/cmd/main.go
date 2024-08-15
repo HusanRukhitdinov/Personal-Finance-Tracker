@@ -35,10 +35,10 @@ func main() {
 
 	go func() {
 		// defer wg.Done()
-		fmt.Printf("Server is listening on port %s\n", config.Load().USER_SERVICE)
+		fmt.Printf("Server is listening on port %s\n", config.Load().HTTP_PORT)
 		auth := api.NewServer(authHandler)
 		router := auth.NewRouter()
-		if err := router.Run(config.Load().USER_SERVICE); err != nil {
+		if err := router.Run(config.Load().HTTP_PORT); err != nil {
 			log.Error("server error", "Error while running HTTP server: %v", err)
 		}
 	}()
@@ -46,7 +46,7 @@ func main() {
 	// gRPC serverni TCP portda tinglash
 	go func() {
 
-		liss, err := net.Listen("tcp", "auth-services1"+config.Load().HTTP_PORT)
+		liss, err := net.Listen("tcp", "auth-services1"+config.Load().USER_SERVICE)
 		if err != nil {
 			log.Error("...", "Error while listening on TCP: %v", err)
 			return
