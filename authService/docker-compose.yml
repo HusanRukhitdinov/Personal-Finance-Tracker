@@ -88,3 +88,6 @@ volumes:
 
 networks:
   app:
+  driver: bridge
+  name: app
+  external: true

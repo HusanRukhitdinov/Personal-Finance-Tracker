@@ -100,7 +100,7 @@ services:
 
 networks:
   app:
-    external: true
+ 
 
 volumes:
   mongodb:
