@@ -33,7 +33,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd golang/src/github/Personal-Finance-Tracker
-            git pull
             sudo docker compose down
-            sudo docker compose up -d
+            git pull
+            sudo docker compose up --build -d
             
